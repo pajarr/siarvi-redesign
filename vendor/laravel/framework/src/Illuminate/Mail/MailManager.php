@@ -194,9 +194,7 @@ class MailManager implements FactoryContract
         $scheme = $config['scheme'] ?? null;
 
         if (! $scheme) {
-            $scheme = ! empty($config['encryption']) && $config['encryption'] === 'tls'
-                ? (($config['port'] == 465) ? 'smtps' : 'smtp')
-                : '';
+            $scheme = ($config['port'] == 465) ? 'smtps' : 'smtp';
         }
 
         $transport = $factory->create(new Dsn(
@@ -367,8 +365,8 @@ class MailManager implements FactoryContract
         $factory = new PostmarkTransportFactory(null, $this->getHttpClient($config));
 
         $options = isset($config['message_stream_id'])
-                    ? ['message_stream' => $config['message_stream_id']]
-                    : [];
+            ? ['message_stream' => $config['message_stream_id']]
+            : [];
 
         return $factory->create(new Dsn(
             'postmark+api',
