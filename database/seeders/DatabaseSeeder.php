@@ -17,6 +17,10 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
+        $this->call(
+            AdminSeed::class,
+        );
+
         $role = Role::create(['name' => 'Administrator']);
 
         $user = User::where('username', 'admin')->first();
